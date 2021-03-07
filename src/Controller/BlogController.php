@@ -77,6 +77,8 @@ class BlogController extends AbstractController
             $blog->setDate(new \DateTime());
             $em->persist($blog);
             $em->flush();
+
+            return $this->redirectToRoute('blog');
         }
 
 
