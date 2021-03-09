@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
+{% block title %}Hello BackendBlogController!{% endblock %}
 
 {% block body %}
     <main id="main">
-
         <!-- ======= Blog Header ======= -->
         <div class="header-bg page-area">
             <div class="container position-relative">
@@ -16,7 +15,7 @@
                                     <h1 class="title2">Backend</h1>
                                 </div>
                                 <div class="layer3">
-                                    <h2 class="title3">New Posts</h2>
+                                    <h2 class="title3">Blog Edit</h2>
                                 </div>
                             </div>
                         </div>
@@ -25,12 +24,10 @@
             </div>
         </div><!-- End Blog Header -->
 
-        <!-- ======= Blog Page ======= -->
-        <div class="blog-page area-padding">
-            <div class="container">
-         {{ form(create) }}
-            </div>
-        </div><!-- End Blog Page -->
+<div class="container">
 
-    </main><!-- End #main -->
+{{ form(edit) }}
+
+        </div>
+    </main>
 {% endblock %}

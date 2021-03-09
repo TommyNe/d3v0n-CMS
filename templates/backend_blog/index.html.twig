@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello BackendBlogController!{% endblock %}
+
+{% block body %}
+    <main id="main">
+        <!-- ======= Blog Header ======= -->
+        <div class="header-bg page-area">
+            <div class="container position-relative">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="slider-content text-center">
+                            <div class="header-bottom">
+                                <div class="layer2">
+                                    <h1 class="title2">Backend</h1>
+                                </div>
+                                <div class="layer3">
+                                    <h2 class="title3">Blog Edit</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Blog Header -->
+
+<div class="container">
+        <h1>User Bearbeiten</h1>
+        <br>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Nr.</td>
+                <td>Title</td>
+                <td>löschen</td>
+                <td><a href="{{ path ('blog.create') }}">anlegen</a></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for blg in blog %}
+                <tr>
+                    <td>{{ blg.id }}</td>
+                    <td><a href="#">{{ blg.Title }}</a></td>
+                    <td><a href="{{ path ('backend.entfernen', {id: blg.id}) }}">x</a></td>
+                    <td><a href="{{ path ('backend.edit', {id: blg.id}) }}">Edit</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="blog-pagination">
+            {{ knp_pagination_render(blog) }}
+        </div>
+        </div>
+    </main>
+{% endblock %}

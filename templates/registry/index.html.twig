@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BlogController!{% endblock %}
 
 {% block body %}
     <main id="main">
@@ -13,10 +12,10 @@
                         <div class="slider-content text-center">
                             <div class="header-bottom">
                                 <div class="layer2">
-                                    <h1 class="title2">Backend</h1>
+                                    <h1 class="title2">My Blog</h1>
                                 </div>
                                 <div class="layer3">
-                                    <h2 class="title3">New Posts</h2>
+                                    <h2 class="title3">Registry Users</h2>
                                 </div>
                             </div>
                         </div>
@@ -28,9 +27,10 @@
         <!-- ======= Blog Page ======= -->
         <div class="blog-page area-padding">
             <div class="container">
-         {{ form(create) }}
+                {{ form(regform) }}
             </div>
         </div><!-- End Blog Page -->
 
     </main><!-- End #main -->
+
 {% endblock %}

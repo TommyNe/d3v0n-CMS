@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Benutzer;
-use App\Form\UserType;
+use App\Form\UsersType;
 use App\Repository\BenutzerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/user", name="user.")
  */
-class UserController extends AbstractController
+class UsersController extends AbstractController
 {
     /**
      * @Route("/", name="bearbeiten")
@@ -30,7 +30,7 @@ class UserController extends AbstractController
      */
     public function anlegen(Request $request){
         $user = new Benutzer();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UsersType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
