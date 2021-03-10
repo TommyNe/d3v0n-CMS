@@ -13,10 +13,10 @@
                         <div class="slider-content text-center">
                             <div class="header-bottom">
                                 <div class="layer2">
-                                    <h1 class="title2">My Blog</h1>
+                                    <h1 class="title2">D3v0n Blog</h1>
                                 </div>
                                 <div class="layer3">
-                                    <h2 class="title3">Profesional Blog Page</h2>
+                                    <h2 class="title3">News from D3v0n</h2>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 <!-- search option start -->
                                 <form action="#">
                                     <div class="search-option">
-                                        <input type="text" placeholder="Search...">
+                                        <input type="text" name="q" value="{{ app.request.query.get('q') }}" placeholder="Search...">
                                         <button class="button" type="submit">
                                             <i class="bi bi-search"></i>
                                         </button>
@@ -153,6 +153,40 @@
                         </div>
                     </div>
                     <!-- End left sidebar -->
+                    {% for quer in search %}
+                    <!-- Start search blog -->
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="single-blog">
+                                    <div class="single-blog-img">
+                                        <a href="blog-details.html">
+                                            <img src="{{ asset('bilder/' ~ quer.pic)  }}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blog-meta">
+                    <span class="comments-type">
+                      <i class="bi bi-chat"></i>
+                      <a href="#">11 comments</a>
+                    </span>
+                                        <span class="date-type">
+                      <i class="bi bi-calendar"></i>{{ quer.date|date('d.m.Y') }}
+                    </span>
+                                    </div>
+                                    <div class="blog-text">
+                                        <h4>
+                                            <a href="#">{{ quer.Title }}</a>
+                                        </h4>
+                                        <p>{{ quer.content[:50] }}...</p>
+                                    </div>
+                                    <span>
+                    <a href="blog-details.html" class="ready-btn">Read more</a>
+                  </span>
+                                </div>
+                            </div>
+                            <!-- End search blog -->
+                            {% endfor %}
+
                     {% for entry in blog %}
                     <!-- Start single blog -->
                     <div class="col-md-8 col-sm-8 col-xs-12">

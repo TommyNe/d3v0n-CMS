@@ -19,7 +19,24 @@ class BlogRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Blog::class);
     }
+    /**
+     * @param string|null $term
+     * @return Blog[]
+     */
 
+    public function findAllWithSearch(?string $term)
+    {
+        $qb = $this->createQueryBuilder('c');
+        if ($term) {
+            $qb->andWhere('c.Title LIKE :term OR c.content LIKE :term')
+                ->setParameter('term', '%' . $term . '%');
+        }
+        return $qb
+            ->orderBy('c.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return Blog[] Returns an array of Blog objects

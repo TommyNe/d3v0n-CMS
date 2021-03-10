@@ -42,11 +42,15 @@ class BlogController extends AbstractController
             5
         );
 
+        $q = $request->query->get('q');
+        $search = $blog->findAllWithSearch($q);
+
         //$blg = $blog->findAll();
 
         return $this->render('blog/index.html.twig', [
             'blog' => $blg,
             'latest' => $latestBlogQuerry,
+            'search' => $search,
         ]);
     }
 
