@@ -36,14 +36,16 @@ class BlogController extends AbstractController
             ->getQuery()
             ->getResult();
 
+        $q = $request->query->get('q');
+        $search = $blog->findAllWithSearch($q);
+
         $blg = $paginator->paginate(
             $allBlogQuerry,
             $request->query->getInt('page', 1),
             5
         );
 
-        $q = $request->query->get('q');
-        $search = $blog->findAllWithSearch($q);
+
 
         //$blg = $blog->findAll();
 
@@ -77,7 +79,11 @@ class BlogController extends AbstractController
             );
 
 
+            $username = $this->getUser()->getUsername();
+
+
             $blog->setPic($picname);
+            $blog->setUser($username);
             $blog->setDate(new \DateTime());
             $em->persist($blog);
             $em->flush();
@@ -89,6 +95,18 @@ class BlogController extends AbstractController
 
         return $this->render('blog/create.html.twig', [
             'create' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/details/{id}", name="details")
+     */
+    public function details(BlogRepository $blog, $id, Request $request)
+    {
+        $blg = $blog->find($id);
+
+        return $this->render('blog/details.html.twig', [
+            'details' => $blg,
         ]);
     }
 }

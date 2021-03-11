@@ -52,12 +52,12 @@
                                         {% for ent in latest %}
                                         <div class="recent-single-post">
                                             <div class="post-img">
-                                                <a href="#">
+                                                <a href="{{ path ('blog.details', {id: ent.id}) }}">
                                                     <img src="{{ asset('bilder/' ~ ent.pic)  }}" alt="">
                                                 </a>
                                             </div>
                                             <div class="pst-content">
-                                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                                                <p><a href="{{ path ('blog.details', {id: ent.id}) }}"> {{ ent.Title }}</a></p>
                                             </div>
                                         </div>
                                         <!-- End single post -->
@@ -153,6 +153,7 @@
                         </div>
                     </div>
                     <!-- End left sidebar -->
+                    {% if app.request.query.get('q') %}
                     {% for quer in search %}
                     <!-- Start search blog -->
                     <div class="col-md-8 col-sm-8 col-xs-12">
@@ -160,7 +161,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="single-blog">
                                     <div class="single-blog-img">
-                                        <a href="blog-details.html">
+                                        <a href="{{ path ('blog.details', {id: quer.id}) }}">
                                             <img src="{{ asset('bilder/' ~ quer.pic)  }}" alt="">
                                         </a>
                                     </div>
@@ -175,18 +176,20 @@
                                     </div>
                                     <div class="blog-text">
                                         <h4>
-                                            <a href="#">{{ quer.Title }}</a>
+                                            <a href="{{ path ('blog.details', {id: quer.id}) }}">{{ quer.Title }}</a>
                                         </h4>
                                         <p>{{ quer.content[:50] }}...</p>
                                     </div>
                                     <span>
-                    <a href="blog-details.html" class="ready-btn">Read more</a>
+                    <a href="{{ path ('blog.details', {id: quer.id}) }}" class="ready-btn">Read more</a>
                   </span>
                                 </div>
                             </div>
                             <!-- End search blog -->
                             {% endfor %}
+                            {% endif %}
 
+                            {% if not app.request.query.get('q') %}
                     {% for entry in blog %}
                     <!-- Start single blog -->
                     <div class="col-md-8 col-sm-8 col-xs-12">
@@ -194,7 +197,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="single-blog">
                                     <div class="single-blog-img">
-                                        <a href="blog-details.html">
+                                        <a href="{{ path ('blog.details', {id: entry.id}) }}">
                                             <img src="{{ asset('bilder/' ~ entry.pic)  }}" alt="">
                                         </a>
                                     </div>
@@ -209,20 +212,23 @@
                                     </div>
                                     <div class="blog-text">
                                         <h4>
-                                            <a href="#">{{ entry.Title }}</a>
+                                            <a href="{{ path ('blog.details', {id: entry.id}) }}">{{ entry.Title }}</a>
                                         </h4>
                                         <p>{{ entry.content[:50] }}...</p>
                                     </div>
                                     <span>
-                    <a href="blog-details.html" class="ready-btn">Read more</a>
+                    <a href="{{ path ('blog.details', {id: entry.id}) }}" class="ready-btn">Read more</a>
                   </span>
                                 </div>
                             </div>
                             <!-- End single blog -->
                             {% endfor %}
+
+
                             <div class="blog-pagination">
                                 {{ knp_pagination_render(blog) }}
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
