@@ -14,7 +14,7 @@
                                     <h1 class="title2">Blog Details </h1>
                                 </div>
                                 <div class="layer3">
-                                    <h2 class="title3">profesional Blog Page</h2>
+                                    <h2 class="title3">D3v0n</h2>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                 <!-- search option start -->
                                 <form action="#">
                                     <div class="search-option">
-                                        <input type="text" placeholder="Search...">
+                                        <input type="text" name="q" value="{{ app.request.query.get('q') }}" placeholder="Search...">
                                         <button class="button" type="submit">
                                             <i class="bi bi-search"></i>
                                         </button>
@@ -43,56 +43,23 @@
                             </div>
                             <div class="single-blog-page">
                                 <!-- recent start -->
+
                                 <div class="left-blog">
                                     <h4>recent post</h4>
                                     <div class="recent-post">
                                         <!-- start single post -->
+                                        {% for post in latest %}
                                         <div class="recent-single-post">
                                             <div class="post-img">
-                                                <a href="#">
-                                                    <img src="assets/img/blog/1.jpg" alt="">
+                                                <a href="{{ path ('blog.details', {id: post.id}) }}">
+                                                    <img src="{{ asset('bilder/' ~ post.pic) }}" alt="">
                                                 </a>
                                             </div>
                                             <div class="pst-content">
-                                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                                                <p><a href="{{ path ('blog.details', {id: post.id}) }}"> {{ post.Title }}</a></p>
                                             </div>
                                         </div>
-                                        <!-- End single post -->
-                                        <!-- start single post -->
-                                        <div class="recent-single-post">
-                                            <div class="post-img">
-                                                <a href="#">
-                                                    <img src="assets/img/blog/2.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="pst-content">
-                                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                                            </div>
-                                        </div>
-                                        <!-- End single post -->
-                                        <!-- start single post -->
-                                        <div class="recent-single-post">
-                                            <div class="post-img">
-                                                <a href="#">
-                                                    <img src="assets/img/blog/3.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="pst-content">
-                                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                                            </div>
-                                        </div>
-                                        <!-- End single post -->
-                                        <!-- start single post -->
-                                        <div class="recent-single-post">
-                                            <div class="post-img">
-                                                <a href="#">
-                                                    <img src="assets/img/blog/4.jpg" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="pst-content">
-                                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                         <!-- End single post -->
                                     </div>
                                 </div>
@@ -184,6 +151,44 @@
                         </div>
                     </div>
                     <!-- End left sidebar -->
+                    {% if app.request.query.get('q') %}
+                        {% for quer in search %}
+                    <!-- Start search blog -->
+                    <div class="col-md-8 col-sm-8 col-xs-12">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="single-blog">
+                                    <div class="single-blog-img">
+                                        <a href="{{ path ('blog.details', {id: quer.id}) }}">
+                                            <img src="{{ asset('bilder/' ~ quer.pic)  }}" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="blog-meta">
+                    <span class="comments-type">
+                      <i class="bi bi-chat"></i>
+                      <a href="#">{{ comment|length }} comments</a>
+                    </span>
+                                        <span class="date-type">
+                      <i class="bi bi-calendar"></i>{{ quer.date|date('d.m.Y') }}
+                    </span>
+                                    </div>
+                                    <div class="blog-text">
+                                        <h4>
+                                            <a href="{{ path ('blog.details', {id: quer.id}) }}">{{ quer.Title }}</a>
+                                        </h4>
+                                        <p>{{ quer.content[:50] }}...</p>
+                                    </div>
+                                    <span>
+                    <a href="{{ path ('blog.details', {id: quer.id}) }}" class="ready-btn">Read more</a>
+                  </span>
+                                </div>
+                            </div>
+                            <!-- End search blog -->
+                        {% endfor %}
+
+                    {% endif %}
+
+                    {% if not app.request.query.get('q') %}
                     <!-- Start single blog -->
                     <div class="col-md-8 col-sm-8 col-xs-12">
                         <div class="row">
@@ -209,98 +214,76 @@
                         <a href="#"> Humer</a>,
                         <a href="#">House</a>
                       </span>
-                                            <span><i class="bi bi-chat"></i> <a href="#">6 comments</a></span>
+                                            <span><i class="bi bi-chat"></i> <a href="#">{{ comment|length }} comments</a></span>
                                         </div>
                                         <div class="entry-content">
                                             <p>{{ details.content }}</p>
                                         </div>
                                     </div>
                                 </article>
+
                                 <div class="clear"></div>
+
+                                <!-- Comments -->
+
                                 <div class="single-post-comments">
                                     <div class="comments-area">
                                         <div class="comments-heading">
-                                            <h3>6 comments</h3>
+
+                                            <h3>{{ comment|length }} comments</h3>
                                         </div>
+                                        {% for post in comment %}
                                         <div class="comments-list">
                                             <ul>
                                                 <li class="threaded-comments">
                                                     <div class="comments-details">
                                                         <div class="comments-list-img">
-                                                            <img src="assets/img/blog/b02.jpg" alt="post-author">
+                                                            <img src="{{ asset('assets/img/blog/b02.jpg')  }}" alt="post-author">
                                                         </div>
+
+
                                                         <div class="comments-content-wrap">
                               <span>
-                                <b><a href="#">demo</a></b>
+                                <b><a href="#">{{ post.name }}</a></b>
                                 Post author
-                                <span class="post-time">October 6, 2014 at 4:25 pm</span>
+                                <span class="post-time">{{ post.date|date('d.m.Y') }}</span>
                                 <a href="#">Reply</a>
                               </span>
-                                                            <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur</p>
+                                                            <p>{{ post.content }}</p>
                                                         </div>
                                                     </div>
                                                 </li>
-                                                <li>
-                                                    <div class="comments-details">
-                                                        <div class="comments-list-img">
-                                                            <img src="assets/img/blog/b02.jpg" alt="post-author">
-                                                        </div>
-                                                        <div class="comments-content-wrap">
-                              <span>
-                                <b><a href="#">admin</a></b>
-                                Post author
-                                <span class="post-time">October 6, 2014 at 6:18 pm </span>
-                                <a href="#">Reply</a>
-                              </span>
-                                                            <p>Quisque orci nibh, porta vitae sagittis sit amet, vehicula vel mauris. Aenean at justo dolor. Fusce ac sapien bibendum, scelerisque libero nec</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="threaded-comments">
-                                                    <div class="comments-details">
-                                                        <div class="comments-list-img">
-                                                            <img src="assets/img/blog/b02.jpg" alt="post-author">
-                                                        </div>
-                                                        <div class="comments-content-wrap">
-                              <span>
-                                <b><a href="#">demo</a></b>
-                                Post author
-                                <span class="post-time">October 6, 2014 at 7:25 pm</span>
-                                <a href="#">Reply</a>
-                              </span>
-                                                            <p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
+
+                                    {% endfor %}
+
+                                    <!-- Comment Form -->
+                                    {{ form_start(coform) }}
                                     <div class="comment-respond">
                                         <h3 class="comment-reply-title">Leave a Reply </h3>
                                         <span class="email-notes">Your email address will not be published. Required fields are marked *</span>
                                         <form action="#">
                                             <div class="row">
                                                 <div class="col-lg-4 col-md-4">
-                                                    <p>Name *</p>
-                                                    <input type="text" />
+                                                    {{form_row(coform.name)}}
                                                 </div>
                                                 <div class="col-lg-4 col-md-4">
-                                                    <p>Email *</p>
-                                                    <input type="email" />
+                                                    {{form_row(coform.email)}}
                                                 </div>
                                                 <div class="col-lg-4 col-md-4">
-                                                    <p>Website</p>
-                                                    <input type="text" />
+                                                    {{form_row(coform.website)}}
                                                 </div>
                                                 <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
-                                                    <p>Website</p>
-                                                    <textarea id="message-box" cols="30" rows="10"></textarea>
-                                                    <input type="submit" value="Post Comment" />
+                                                   {{ form_row(coform.content) }}
+                                                    <br/>
+                                                    {{form_row(coform.post, { 'label': 'Post Comment' }, {'class': 'comment-respond input[type="submit"]'})}}
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
+                                    {{ form_end(coform) }}
                                 </div>
+                                {% endif %}
                                 <!-- single-blog end -->
                             </div>
                         </div>

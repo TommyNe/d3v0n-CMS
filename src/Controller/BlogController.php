@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\Comment;
 use App\Form\BlogType;
+use App\Form\CommentType;
 use App\Repository\BlogRepository;
+use App\Repository\CommentRepository;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -101,12 +107,67 @@ class BlogController extends AbstractController
     /**
      * @Route("/details/{id}", name="details")
      */
-    public function details(BlogRepository $blog, $id, Request $request)
+    public function details(BlogRepository $blogRepository, $id, Request $request, Blog $blog, CommentRepository $commentRepository)
     {
-        $blg = $blog->find($id);
+
+        $commentForm = $this->createFormBuilder()
+            ->setMethod('GET')
+            ->add('name', TextType::class, ['label' => 'Name *'])
+            ->add('email', TextType::class, ['label' => 'Email *'])
+            ->add('website', TextType::class, ['label' => 'Website'])
+            ->add('content', TextareaType::class, ['label' => 'Content *'])
+            ->add('post', SubmitType::class)
+            ->getForm();
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted()) {
+            $em = $this->getDoctrine()->getManager();
+
+            $comment = $commentForm->getData();
+
+            $cmt = new Comment();
+
+            $cmt->setDate(new \DateTime());
+            $cmt->setEmail($comment['email']);
+            $cmt->setName($comment['name']);
+            $cmt->setWebsite($comment['website']);
+            $cmt->setContent($comment['content']);
+            $cmt->setBlog($blog);
+            $em->persist($cmt);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('blog.details', ['id' => $id]));
+
+        }
+
+
+        $com = $commentRepository->findBy(['blog' => $id]);
+
+
+
+
+        $latestBlogQuerry = $blogRepository->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+
+        $q = $request->query->get('q');
+        $search = $blogRepository->findAllWithSearch($q);
+
+        $blg = $blogRepository->find($id);
 
         return $this->render('blog/details.html.twig', [
             'details' => $blg,
+            'latest' => $latestBlogQuerry,
+            'search' => $search,
+            'coform' => $commentForm->createView(),
+            'comment' => $com,
         ]);
     }
+
+
 }
+
+
