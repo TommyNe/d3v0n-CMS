@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Blog;
 use App\Entity\Comment;
 use App\Form\BlogType;
-use App\Form\CommentType;
 use App\Repository\BlogRepository;
 use App\Repository\CommentRepository;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,7 +24,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="view")
      */
-    public function index(BlogRepository $blog, Request $request, PaginatorInterface $paginator): Response
+    public function index(BlogRepository $blog, Request $request, PaginatorInterface $paginator, CommentRepository $commentRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -50,7 +49,6 @@ class BlogController extends AbstractController
             $request->query->getInt('page', 1),
             5
         );
-
 
 
         //$blg = $blog->findAll();

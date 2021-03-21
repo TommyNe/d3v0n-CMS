@@ -203,8 +203,8 @@
                                     </div>
                                     <div class="blog-meta">
                     <span class="comments-type">
-                      <i class="bi bi-chat"></i>
-                      <a href="#">11 comments</a>
+                      <i class="bi bi-person"></i>
+                      <a href="{{ path ('blog.details', {id: entry.id}) }}#comments">{{ entry.user }}</a>
                     </span>
                                         <span class="date-type">
                       <i class="bi bi-calendar"></i>{{ entry.date|date('d.m.Y') }}

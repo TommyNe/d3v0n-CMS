@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Abouth;
 use App\Entity\Blog;
+use App\Form\AbouthType;
 use App\Form\BlogType;
 use App\Repository\BlogRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -69,6 +71,48 @@ class BackendBlogController extends AbstractController
         }
         return $this->render('backend_blog/edit.html.twig', [
             'edit' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/abouth/{id}", name="abouth")
+     */
+    public function abouth(Abouth $abouth, Request $request)
+    {
+
+
+        $form = $this->createForm(AbouthType::class, $abouth);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted())
+        {
+            $em = $this->getDoctrine()->getManager();
+
+            $pict = $request->files->get('abouth') ['picture'];
+
+
+            if ($pict) {
+                $picname = md5(uniqid()) . '.' . $pict->guessClientExtension();
+            }
+            $pict->move(
+                $this->getParameter('bilder_ordner'),
+                $picname
+            );
+
+            $abouth->setPicture($picname);
+            $em->persist($abouth);
+            $em->flush();
+            $this->addFlash('success', 'Article Updated! Inaccuracies squashed!');
+            return $this->redirectToRoute('backend.abouth',
+                [
+                    'id' => $abouth->getId(),
+                ]
+            );
+
+        }
+
+        return $this->render('backend_blog/abouth.html.twig', [
+            'abouth' => $form->createView()
         ]);
     }
 
