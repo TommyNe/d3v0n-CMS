@@ -30,9 +30,6 @@ class HomeController extends AbstractController
 
         $abouth = $abouthRepository->find($id);
 
-        $instagram = new Instagram(new \GuzzleHttp\Client());
-        $insta_response = $instagram->getMedias('tommy080584');
-        $insta = $insta_response[0]->getImageStandardResolutionUrl();
 
 
 
@@ -42,7 +39,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'post' => $latestBlogQuerry,
             'abouth' => $abouth,
-            'instagram' => $insta_response,
+
         ]);
 
     }
