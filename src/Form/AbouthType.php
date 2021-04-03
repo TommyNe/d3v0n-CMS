@@ -16,7 +16,7 @@ class AbouthType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content', CKEditorType::class, ['auto_inline' => false])
+            ->add('content', CKEditorType::class)
             ->add('picture', FileType::class, ['mapped' => false])
             ->add('Save', SubmitType::class)
         ;

@@ -92,7 +92,7 @@ class BlogController extends AbstractController
             $em->persist($blog);
             $em->flush();
 
-            return $this->redirectToRoute('blog');
+            return $this->redirect($this->generateUrl('blog'));
         }
 
 

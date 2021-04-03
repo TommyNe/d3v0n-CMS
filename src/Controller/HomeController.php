@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Blog;
 use App\Repository\AbouthRepository;
 use App\Repository\BlogRepository;
+use InstagramScraper\Instagram;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,11 +30,19 @@ class HomeController extends AbstractController
 
         $abouth = $abouthRepository->find($id);
 
+        $instagram = new Instagram(new \GuzzleHttp\Client());
+        $insta_response = $instagram->getMedias('tommy080584');
+        $insta = $insta_response[0]->getImageStandardResolutionUrl();
+
+
+
+
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'post' => $latestBlogQuerry,
             'abouth' => $abouth,
+            'instagram' => $insta_response,
         ]);
 
     }
