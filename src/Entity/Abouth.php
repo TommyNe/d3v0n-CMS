@@ -32,6 +32,11 @@ class Abouth
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $service;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class Abouth
     public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getService(): ?string
+    {
+        return $this->service;
+    }
+
+    public function setService(string $service): self
+    {
+        $this->service = $service;
 
         return $this;
     }

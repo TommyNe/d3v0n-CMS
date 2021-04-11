@@ -178,7 +178,7 @@
                                         <h4>
                                             <a href="{{ path ('blog.details', {id: quer.id}) }}">{{ quer.Title }}</a>
                                         </h4>
-                                        <p>{{ quer.content[:50] }}...</p>
+                                        <p>{{ quer.content[:50]|raw }}...</p>
                                     </div>
                                     <span>
                     <a href="{{ path ('blog.details', {id: quer.id}) }}" class="ready-btn">Read more</a>
@@ -214,7 +214,7 @@
                                         <h4>
                                             <a href="{{ path ('blog.details', {id: entry.id}) }}">{{ entry.Title }}</a>
                                         </h4>
-                                        <p>{{ entry.content[:50] }}...</p>
+                                        <p>{{ entry.content[:50]|raw }}...</p>
                                     </div>
                                     <span>
                     <a href="{{ path ('blog.details', {id: entry.id}) }}" class="ready-btn">Read more</a>

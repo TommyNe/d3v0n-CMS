@@ -114,7 +114,7 @@ class BlogController extends AbstractController
             ->add('email', TextType::class, ['label' => 'Email *'])
             ->add('website', TextType::class, ['label' => 'Website'])
             ->add('content', TextareaType::class, ['label' => 'Content *'])
-            ->add('post', SubmitType::class)
+            ->add('post', SubmitType::class, ['attr' => ['class' => 'btn btn-outline-info']])
             ->getForm();
 
         $commentForm->handleRequest($request);
