@@ -122,8 +122,9 @@
                         </div>
                     </div>
                 </div>
-                {% for person in team %}
+
                 <div class="row">
+                    {% for person in team %}
                     <div class="col-md-3 col-sm-3 col-xs-12">
                         <div class="single-team-member">
                             <div class="team-img">
@@ -159,23 +160,29 @@
                     {% endfor %}
                     <!-- End column -->
                 </div>
+
+
             </div>
         </div><!-- End Team Section -->
 
+
+
         <!-- ======= Rviews Section ======= -->
         <div class="reviews-area">
+             {% for co in contact %}
             <div class="row g-0">
                 <div class="col-lg-6">
                     <img src="{{asset('assets/img/about/2.jpg')}}" alt="" class="img-fluid">
                 </div>
                 <div class="col-lg-6 work-right-text d-flex align-items-center">
                     <div class="px-5 py-5 py-lg-0">
-                        <h2>working with us</h2>
-                        <h5>Web Design, Ready Home, Construction and Co-operate Outstanding Buildings.</h5>
-                        <a href="#contact" class="ready-btn scrollto">Contact us</a>
+                        <h2>{{ co.title }}</h2>
+                        <h5>{{ co.content  }}</h5>
+                        <a href="{{ co.link }}" class="ready-btn scrollto">Contact us</a>
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div><!-- End Rviews Section -->
 
         <!-- ======= Portfolio Section ======= -->

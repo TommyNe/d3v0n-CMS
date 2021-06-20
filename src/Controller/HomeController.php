@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\Contact;
 use App\Repository\AbouthRepository;
 use App\Repository\BlogRepository;
+use App\Repository\ContactRepository;
 use App\Repository\OurServiceRepository;
 use App\Repository\TeamRepository;
 use InstagramScraper\Instagram;
@@ -21,7 +23,8 @@ class HomeController extends AbstractController
     public function index(BlogRepository $blogRepository,
                           AbouthRepository $abouthRepository,
                           OurServiceRepository $ourServiceRepository,
-                          TeamRepository $teamRepository): Response
+                          TeamRepository $teamRepository,
+                          ContactRepository $contactRepository): Response
     {
         $em = $this->getDoctrine()->getManager();
         $blogEnt = $em->getRepository(Blog::class);
@@ -36,6 +39,7 @@ class HomeController extends AbstractController
         $abouth = $abouthRepository->find($id);
         $service = $ourServiceRepository->findAll();
         $team = $teamRepository->findAll();
+        $contact = $contactRepository->findAll();
 
 
         return $this->render('home/index.html.twig', [
@@ -44,6 +48,7 @@ class HomeController extends AbstractController
             'abouth' => $abouth,
             'service' => $service,
             'team' => $team,
+            'contact' => $contact,
 
         ]);
 

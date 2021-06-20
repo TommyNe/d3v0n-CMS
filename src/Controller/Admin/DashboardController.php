@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Abouth;
+use App\Entity\Downloads;
 use App\Entity\OurService;
 use App\Entity\Team;
 use App\Entity\User;
+use App\Entity\Contact;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -86,6 +88,8 @@ class DashboardController extends AbstractDashboardController
             MenuItem::linkToCrud('Abouth', 'fa fa-tags', Abouth::class),
             MenuItem::linkToCrud('OurService', 'fa fa-file-text', OurService::class),
             MenuItem::linkToCrud('Team', 'fa fa-file-text', Team::class),
+            MenuItem::linkToCrud('Contact', 'fa fa-file-text', Contact::class),
+            MenuItem::linkToCrud('Downloads', 'fa fa-file-text', Downloads::class),
 
             MenuItem::section('Users'),
             //MenuItem::linkToCrud('Comments', 'fa fa-comment', Comment::class),

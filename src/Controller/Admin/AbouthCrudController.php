@@ -24,6 +24,7 @@ class AbouthCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('content'),
             ImageField::new('picture')->setUploadDir('public/bilder'),
+            TextField::new('service'),
 
         ];
     }
