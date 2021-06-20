@@ -377,7 +377,7 @@
 
             </div>
         </div><!-- End Testimonials Section -->
-{% for news in post %}
+
         <!-- ======= Blog Section ======= -->
         <div id="blog" class="blog-area">
             <div class="blog-inner area-padding">
@@ -390,6 +390,7 @@
                             </div>
                         </div>
                     </div>
+                    {% for news in post %}
                     <div class="row">
                         <!-- Start Left Blog -->
                         <div class="col-md-4 col-sm-4 col-xs-12">
@@ -419,15 +420,15 @@
                                 <span>
                   <a href="blog.html" class="ready-btn">Read more</a>
                 </span>
-                            </div>git
+                            </div>
 
-
+                            {% endfor %}
 
                     </div>
                 </div>
             </div>
         </div><!-- End Blog Section -->
-            {% endfor %}
+
 
         <!-- ======= Suscribe Section ======= -->
         <div class="suscribe-area">
