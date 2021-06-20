@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ea8c8fd8-b90d-44c7-9811-d8627a6e6de9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="ea8c8fd8-b90d-44c7-9811-d8627a6e6de9" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -178,7 +176,7 @@
       <workItem from="1623682376758" duration="1278000" />
       <workItem from="1624045530211" duration="2777000" />
       <workItem from="1624050771776" duration="54000" />
-      <workItem from="1624189404843" duration="1770000" />
+      <workItem from="1624189404843" duration="1983000" />
     </task>
     <servers />
   </component>
